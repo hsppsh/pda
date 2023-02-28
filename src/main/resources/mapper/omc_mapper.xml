@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "mes.mapper.prod.omc_mapper">
+    <resultMap id = "default" type = "java.util.Map" />
+
+    <select id = "mes.mapper.prod.omc_mapper.selectOMC1122" resultMap = "default">
+    <![CDATA[
+        SELECT os.com_cd
+             , os.div_cd
+             , os.store_cd
+             , os.store_nm
+             , os.store_class
+             , os.place_flag
+             , os.specialty
+          FROM omc_store AS os
+         WHERE os.com_cd = N'10'
+           AND os.div_cd = N'10'
+    ]]>
+    </select>
+</mapper>

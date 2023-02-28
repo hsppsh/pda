@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "mes.mapper.sys.common_mapper">
+    <resultMap id = "default" type = "java.util.Map" />
+    <resultMap id = "login" type = "java.util.Map">
+        <result property = "com_cd"            column = "com_cd"            jdbcType = "VARCHAR" javaType = "java.lang.String" />
+        <result property = "div_cd"            column = "div_cd"            jdbcType = "VARCHAR" javaType = "java.lang.String" />
+        <result property = "com_loc_nm"        column = "com_loc_nm"        jdbcType = "VARCHAR" javaType = "java.lang.String" />
+        <result property = "emp_id"            column = "emp_id"            jdbcType = "VARCHAR" javaType = "java.lang.String" />
+        <result property = "user_id"           column = "user_id"           jdbcType = "VARCHAR" javaType = "java.lang.String" />
+        <result property = "pwd_chk"           column = "pwd_chk"           jdbcType = "VARCHAR" javaType = "java.lang.String" />
+        <result property = "system_admin_flag" column = "system_admin_flag" jdbcType = "VARCHAR" javaType = "java.lang.String" />
+        <result property = "notice_admin_flag" column = "notice_admin_flag" jdbcType = "VARCHAR" javaType = "java.lang.String" />
+    </resultMap>
+
+    <select id = "mes.mapper.sys.common_mapper.login" resultMap = "login">
+    <![CDATA[
+        SELECT zu.com_cd
+             , zu.div_cd
+             , hc.com_loc_nm
+             , zu.emp_id
+             , zu.user_id
+             , ISNULL(dbo.gfn_compare_crypto(#{pw}, zu.user_password), '') AS pwd_chk
+             , ISNULL(zu.system_admin_flag, '0') AS system_admin_flag
+             , zu.notice_admin_flag
+          FROM zsy_user AS zu
+         INNER
+          JOIN hor_company AS hc
+            ON zu.com_cd = hc.com_cd
+         WHERE zu.com_cd    = N'10'
+           AND zu.user_id   = #{id}
+           AND zu.user_type = '0'
+    ]]>
+    </select>
+</mapper>
